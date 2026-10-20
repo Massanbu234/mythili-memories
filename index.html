@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mythili Memories 💗</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #fff;
+      background:
+        radial-gradient(ellipse at top, #17254c 0%, #090d20 55%, #03050d 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, #ffffffbb 50%, transparent 100%),
+        radial-gradient(1px 1px at 70% 20%, #ffffffcc 50%, transparent 100%),
+        radial-gradient(2px 2px at 80% 75%, #ffffff99 50%, transparent 100%),
+        radial-gradient(1px 1px at 35% 80%, #ffffffcc 50%, transparent 100%),
+        radial-gradient(1px 1px at 55% 55%, #ffffff99 50%, transparent 100%);
+      background-size: 230px 230px;
+      animation: twinkle 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 430px;
+      padding: 35px 25px;
+      border: 1px solid #b8a6ff55;
+      border-radius: 24px;
+      text-align: center;
+      background: #10162bea;
+      box-shadow: 0 0 45px #6555ff22;
+      backdrop-filter: blur(12px);
+    }
+
+    .moon {
+      font-size: 43px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: normal;
+      margin: 10px 0;
+      color: #f1d9ff;
+    }
+
+    .subtitle {
+      color: #c3c7df;
+      line-height: 1.7;
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      margin: 12px 0;
+      padding: 14px;
+      color: white;
+      background: #090e20;
+      border: 1px solid #60688c;
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #c5a7ff;
+      box-shadow: 0 0 0 2px #a78bfa22;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(110deg, #a78bfa, #e8a9d9);
+      color: #171329;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #message {
+      min-height: 24px;
+      margin-top: 15px;
+      color: #ffc3d0;
+      font: 14px Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .small {
+      color: #aeb5d1;
+      font: 12px Arial, sans-serif;
+      line-height: 1.6;
+      margin-top: 18px;
+    }
+
+    #memoriesSection {
+      max-width: 550px;
+    }
+
+    .memory-note {
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 16px;
+      background: #ffffff0c;
+      border: 1px solid #ffffff20;
+      line-height: 1.8;
+      color: #e8e5ff;
+    }
+
+    .logout {
+      background: transparent;
+      border: 1px solid #b8a6ff88;
+      color: #e9ddff;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stars"></div>
+
+  <main class="card" id="loginSection">
+    <div class="moon">🌙</div>
+    <h1>Mythili Memories</h1>
+
+    <p class="subtitle">
+      Some memories never fade... 💗<br />
+      A little world made just for you.
+    </p>
+
+    <form id="loginForm">
+      <input
+        id="email"
+        type="email"
+        placeholder="Your email address"
+        autocomplete="username"
+        required
+      />
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Your password"
+        autocomplete="current-password"
+        required
+      />
+
+      <button id="loginButton" type="submit">
+        Unlock Our Memories ✨
+      </button>
+    </form>
+
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <p class="small">
+      A little place for memories, smiles and friendship. 🌌
+    </p>
+  </main>
+
+  <main class="card" id="memoriesSection" hidden>
+    <div class="moon">💗</div>
+    <h1>Welcome, Mythili!</h1>
+    <p class="subtitle">You're signed in successfully. ✨</p>
+
+    <div class="memory-note">
+      <h2>Our Little Memory World 🌙</h2>
+      <p>
+        Every picture has a story.<br />
+        Every video holds a moment.<br />
+        And every memory has a special place.
+      </p>
+      <p>Our memory gallery will be added here next. 💌</p>
+    </div>
+
+    <p id="signedInEmail" class="small"></p>
+    <button id="logoutButton" class="logout" type="button">
+      Lock Memories 🔒
+    </button>
+    <p id="logoutMessage" class="small"></p>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from
+      "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBq8jL68K7rsIfM5n3rwKlx2XMHP3MVRBQ",
+      authDomain: "mythili-memory-world.firebaseapp.com",
+      projectId: "mythili-memory-world",
+      storageBucket: "mythili-memory-world.firebasestorage.app",
+      messagingSenderId: "460000363561",
+      appId: "1:460000363561:web:8ac398c32244a144dc0838",
+      measurementId: "G-5N9MK4XZFZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginSection = document.getElementById("loginSection");
+    const memoriesSection = document.getElementById("memoriesSection");
+    const loginForm = document.getElementById("loginForm");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const loginButton = document.getElementById("loginButton");
+    const message = document.getElementById("message");
+    const signedInEmail = document.getElementById("signedInEmail");
+    const logoutButton = document.getElementById("logoutButton");
+    const logoutMessage = document.getElementById("logoutMessage");
+
+    function showSignedInUser(user) {
+      loginSection.hidden = true;
+      memoriesSection.hidden = false;
+      signedInEmail.textContent = "Signed in as: " + (user.email || "User");
+      passwordInput.value = "";
+    }
+
+    function showLogin() {
+      memoriesSection.hidden = true;
+      loginSection.hidden = false;
+      signedInEmail.textContent = "";
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      message.textContent = "";
+      loginButton.disabled = true;
+      loginButton.textContent = "Checking... ✨";
+
+      try {
+        const result = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        showSignedInUser(result.user);
+      } catch (error) {
+        console.error("Login error:", error.code);
+
+        if (
+          error.code === "auth/invalid-credential" ||
+          error.code === "auth/wrong-password" ||
+          error.code === "auth/user-not-found" ||
+          error.code === "auth/invalid-email"
+        ) {
+          message.textContent = "Email or password is incorrect. Please check and try again.";
+        } else if (error.code === "auth/too-many-requests") {
+          message.textContent = "Too many attempts. Please wait and try again later.";
+        } else {
+          message.textContent = "Login failed. Check your internet and Firebase setup.";
+        }
+      } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "Unlock Our Memories ✨";
+      }
+    });
+
+    logoutButton.addEventListener("click", async () => {
+      logoutButton.disabled = true;
+      logoutMessage.textContent = "";
+
+      try {
+        await signOut(auth);
+        showLogin();
+        message.textContent = "Memories locked. See you again! 🌙";
+      } catch (error) {
+        logoutMessage.textContent = "Could not sign out. Please try again.";
+      } finally {
+        logoutButton.disabled = false;
+      }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        showSignedInUser(user);
+      } else {
+        showLogin();
+      }
+    });
+  </script>
+</body>
+</html>
